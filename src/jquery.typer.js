@@ -164,6 +164,35 @@ String.prototype.rightChars = function(n){
     $e.typeTo(targets[Math.floor(Math.random()*targets.length)]);
   };
 
+  getBrTagsInfo = function(htmlContent){
+    var
+      childTags = null,
+      brTagsRegExp = /&lt;br\s?.*?\/?&gt;/,
+      matchedBrTag = htmlContent.match(brTagsRegExp),
+      lastBrTagIndex = 0,
+      matchedArr = [],
+      matchedObj = null;
+
+    if( matchedBrTag ){
+      console.log("Okay, Typer handle br tags.");
+      while( matchedBrTag = htmlContent.match(brTagsRegExp) ){
+        htmlContent = htmlContent.replace(brTagsRegExp, '');
+        matchedObj = {
+          html: matchedBrTag[0],
+          start: lastBrTagIndex + matchedBrTag.index,
+          end: lastBrTagIndex + matchedBrTag.index + matchedBrTag[0].length
+        };
+        lastBrTagIndex = matchedObj.end;
+        matchedArr.push(matchedObj);
+      }
+    }
+    else {
+      console.log("Sorry, Typer doesn't handle any other than br tags as child elements.");
+    }
+
+    return matchedArr.length>0 ? matchedArr : false;
+  };
+
   // Expose our options to the world.
   $.typer = (function () {
     return { options: options };
@@ -196,17 +225,23 @@ String.prototype.rightChars = function(n){
     var
       $e = $(this),
       currentText = $e.text(),
+      currentHtml = $e.html(),
       i = 0,
-      j = 0;
+      j = 0,
+      brTagsArr = null;
 
     if (currentText === newString) {
       console.log("Our strings our equal, nothing to type");
       return $e;
     }
 
-    if (currentText !== $e.html()) {
-      console.error("Typer does not work on elements with child elements.");
-      return $e;
+    if( currentText !== currentHtml ){
+      console.log('Typer detected child elements');
+      brTagsArr = getBrTagsInfo(currentHtml);
+
+      if( !brTagsArr || brTagsArr.length === 0 ){
+        return $e;
+      }
     }
 
     $e.data('typing', true);
