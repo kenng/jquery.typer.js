@@ -71,7 +71,7 @@ String.prototype.rightChars = function(n){
       newBrTags = $e.data('newBrTags'),
       newLeft = $e.data('oldLeft'),
       newRight = $e.data('oldRight'),
-      relativeRightIndex = newLeft.length + text.length - 1,
+      relativeRightIndex = 0,
       relativePos = 0;
 
     // if (!isNumber(position)) {
@@ -82,6 +82,8 @@ String.prototype.rightChars = function(n){
       clearData($e);
       return;
     }
+
+    relativeRightIndex = newLeft.length + text.length - 1;
 
     if(newBrTags){
       for(var i=0; i<newBrTags.length; i++){
