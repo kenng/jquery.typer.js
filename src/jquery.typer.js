@@ -13,8 +13,8 @@ String.prototype.rightChars = function(n){
 (function($) {
   var
     options = {
-      highlightSpeed    : 50, // TODO: change back to 20
-      typeSpeed         : 100, // TODO: change back to 100
+      highlightSpeed    : 20,
+      typeSpeed         : 100,
       clearDelay        : 500,
       typeDelay         : 200,
       clearOnHighlight  : true,
@@ -150,17 +150,14 @@ String.prototype.rightChars = function(n){
     if(oldBrTags){
       for(var i=0; i<oldBrTags.length; i++){
         brTag = oldBrTags[i];
-        if(brTag.start < position){
-          console.log('leftText');
+        if(brTag.start < leftText.length){
           leftText = [leftText.slice(0, brTag.start), brTag.html, leftText.slice(brTag.start)].join('');
         }
-        else if( brTag.start >= position && brTag.start <= $e.data('rightStop') ){
-          console.log('highlightedText');
-          brTagRelativeStart = brTag.start - position + 1;
+        else if( brTag.start >= leftText.length && brTag.start < (highlightedText.length + leftText.length) ){
+          brTagRelativeStart = brTag.start - leftText.length;
           highlightedText = [highlightedText.slice(0, brTagRelativeStart), brTag.html, highlightedText.slice(brTagRelativeStart)].join('');
         }
         else {
-          console.log('rightText');
           brTagRelativeStart = brTag.start - $e.data('rightStop');
           rightText = [rightText.slice(0, brTagRelativeStart), brTag.html, rightText.slice(brTagRelativeStart)].join('');
         }
