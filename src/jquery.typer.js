@@ -13,8 +13,8 @@ String.prototype.rightChars = function(n){
 (function($) {
   var
     options = {
-      highlightSpeed    : 500, // TODO: change back to 20
-      typeSpeed         : 100,
+      highlightSpeed    : 50, // TODO: change back to 20
+      typeSpeed         : 100, // TODO: change back to 100
       clearDelay        : 500,
       typeDelay         : 200,
       clearOnHighlight  : true,
@@ -67,7 +67,12 @@ String.prototype.rightChars = function(n){
       // position = $e.data('typePosition'),
       text = $e.data('text'),
       oldLeft = $e.data('oldLeft'),
-      oldRight = $e.data('oldRight');
+      oldRight = $e.data('oldRight'),
+      newBrTags = $e.data('newBrTags'),
+      newLeft = $e.data('oldLeft'),
+      newRight = $e.data('oldRight'),
+      relativeRightIndex = newLeft.length + text.length - 1,
+      relativePos = 0;
 
     // if (!isNumber(position)) {
       // position = $e.data('leftStop');
@@ -78,12 +83,26 @@ String.prototype.rightChars = function(n){
       return;
     }
 
+    if(newBrTags){
+      for(var i=0; i<newBrTags.length; i++){
+        var brTag = newBrTags[i];
+        if(brTag.start <= newLeft.length){
+          newLeft = [newLeft.slice(0, brTag.start), brTag.html, newLeft.slice(brTag.start)].join('');
+          relativeRightIndex = relativeRightIndex + brTag.html.length;
+        }
+        else if(brTag.start < relativeRightIndex){
+          relativeRightIndex = relativeRightIndex + brTag.html.length;
+        }
+        else if(brTag.start >= relativeRightIndex){
+          relativePos = brTag.start - relativeRightIndex;
+          newRight = [newRight.slice(0, relativePos), brTag.html, newRight.slice(relativePos)].join('');
+          relativeRightIndex = relativeRightIndex + brTag.html.length;
+        }
+      }
+    }
 
-    $e.text(
-      oldLeft +
-      text.charAt(0) +
-      oldRight
-    ).data({
+    $e.html(newLeft + text.charAt(0) + newRight)
+      .data({
       oldLeft: oldLeft + text.charAt(0),
       text: text.substring(1)
     });
