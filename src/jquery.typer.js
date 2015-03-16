@@ -14,7 +14,7 @@ String.prototype.rightChars = function(n){
   var
     options = {
       highlightSpeed    : 20,
-      typeSpeed         : 100,
+      typeSpeed         : 70,
       clearDelay        : 500,
       typeDelay         : 200,
       clearOnHighlight  : true,
@@ -58,7 +58,8 @@ String.prototype.rightChars = function(n){
       'primaryColor',
       'backgroundColor',
       'text',
-      'typing'
+      'typing',
+      'finishCallback'
     ]);
   };
 
@@ -71,6 +72,7 @@ String.prototype.rightChars = function(n){
       newBrTags = $e.data('newBrTags'),
       newLeft = $e.data('oldLeft'),
       newRight = $e.data('oldRight'),
+      finishCallback = $e.data('finishCallback'),
       relativeRightIndex = 0,
       relativePos = 0;
 
@@ -79,6 +81,9 @@ String.prototype.rightChars = function(n){
     // }
 
     if (!text || text.length === 0) {
+      if(finishCallback && typeof finishCallback === "function"){
+        finishCallback();
+      }
       clearData($e);
       return;
     }
@@ -265,7 +270,7 @@ String.prototype.rightChars = function(n){
     });
   };
 
-  $.fn.typeTo = function (newEntry) {
+  $.fn.typeTo = function (newEntry, callback) {
     var
       $e = $(this),
       currentText = $e.text(),
@@ -325,7 +330,8 @@ String.prototype.rightChars = function(n){
       backgroundColor: $e.css('background-color'),
       text: newString,
       oldBrTags: oldBrTagsArr,
-      newBrTags: newBrTagsArr
+      newBrTags: newBrTagsArr,
+      finishCallback: callback
     });
 
     highlight($e);
