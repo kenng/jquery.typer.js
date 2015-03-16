@@ -209,7 +209,7 @@ String.prototype.rightChars = function(n){
       childTags = null,
       brTagsRegExp = /<br\s?.*?\/?>/,
       matchedBrTag = htmlContent.match(brTagsRegExp),
-      lastBrTagIndex = 0,
+      offsetRemovedBrTags = 0,
       matchedArr = [],
       matchedObj = null;
 
@@ -219,10 +219,10 @@ String.prototype.rightChars = function(n){
         htmlContent = htmlContent.replace(brTagsRegExp, '');
         matchedObj = {
           html: matchedBrTag[0],
-          start: lastBrTagIndex + matchedBrTag.index,
-          end: lastBrTagIndex + matchedBrTag.index + matchedBrTag[0].length
+          start: offsetRemovedBrTags + matchedBrTag.index,
+          end: offsetRemovedBrTags + matchedBrTag.index + matchedBrTag[0].length
         };
-        lastBrTagIndex = matchedObj.end;
+        offsetRemovedBrTags = matchedBrTag[0].length;
         matchedArr.push(matchedObj);
       }
     }
