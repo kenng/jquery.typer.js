@@ -234,6 +234,10 @@ String.prototype.rightChars = function(n){
     return htmlContent.replace(/<br\s?.*?\/?>/g, '');
   };
 
+  replaceSpecialChars = function(htmlContent){
+    return htmlContent.replace(/&amp;/, '&');
+  };
+
   // Expose our options to the world.
   $.typer = (function () {
     return { options: options };
@@ -266,7 +270,7 @@ String.prototype.rightChars = function(n){
     var
       $e = $(this),
       currentText = $e.text(),
-      currentHtml = $e.html(),
+      currentHtml = replaceSpecialChars($e.html()),
       newString = $('<div>').html(newEntry).text(), // remove tags
       newHtml = newEntry,
       i = 0,
