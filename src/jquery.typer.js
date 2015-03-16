@@ -207,11 +207,12 @@ String.prototype.rightChars = function(n){
         matchedArr.push(matchedObj);
       }
     }
-    else {
-      console.log("Sorry, Typer doesn't handle any other than br tags as child elements.");
-    }
 
     return matchedArr.length>0 ? matchedArr : false;
+  };
+
+  removeBrTags = function(htmlContent){
+    return htmlContent.replace(/<br\s?.*?\/?>/g, '');
   };
 
   // Expose our options to the world.
@@ -242,14 +243,17 @@ String.prototype.rightChars = function(n){
     });
   };
 
-  $.fn.typeTo = function (newString) {
+  $.fn.typeTo = function (newEntry) {
     var
       $e = $(this),
       currentText = $e.text(),
       currentHtml = $e.html(),
+      newString = $('<div>').html(newEntry).text(), // remove tags
+      newHtml = newEntry,
       i = 0,
       j = 0,
-      brTagsArr = null;
+      oldBrTagsArr = null,
+      newBrTagsArr = null;
 
     if (currentText === newString) {
       console.log("Our strings our equal, nothing to type");
@@ -257,10 +261,23 @@ String.prototype.rightChars = function(n){
     }
 
     if( currentText !== currentHtml ){
-      console.log('Typer detected child elements');
-      brTagsArr = getBrTagsInfo(currentHtml);
+      console.log('Typer detected child elements in current html');
 
-      if( !brTagsArr || brTagsArr.length === 0 ){
+      oldBrTagsArr = getBrTagsInfo(currentHtml);
+
+      if( currentText!==removeBrTags(currentHtml) || !oldBrTagsArr || oldBrTagsArr.length === 0 ){
+        console.log("Sorry, Typer doesn't handle any other than br tags as child elements in current html.");
+        return $e;
+      }
+    }
+
+    if( newString !== newHtml ){
+      console.log('Typer detected child elements in new html');
+
+      newBrTagsArr = getBrTagsInfo(newHtml);
+
+      if( newString!==removeBrTags(newHtml) || !newBrTagsArr || newBrTagsArr.length === 0 ){
+        console.log("Sorry, Typer doesn't handle any other than br tags as child elements in new html.");
         return $e;
       }
     }
@@ -285,7 +302,8 @@ String.prototype.rightChars = function(n){
       primaryColor: $e.css('color'),
       backgroundColor: $e.css('background-color'),
       text: newString,
-      oldBrTags: brTagsArr
+      oldBrTags: oldBrTagsArr,
+      newBrTags: newBrTagsArr
     });
 
     highlight($e);
