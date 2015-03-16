@@ -211,7 +211,7 @@ String.prototype.rightChars = function(n){
       matchedObj = null;
 
     if( matchedBrTag ){
-      console.log("Okay, Typer handle br tags.");
+      // console.log("Okay, Typer handle br tags.");
       while( matchedBrTag = htmlContent.match(brTagsRegExp) ){
         htmlContent = htmlContent.replace(brTagsRegExp, '');
         matchedObj = {
@@ -276,28 +276,28 @@ String.prototype.rightChars = function(n){
       newBrTagsArr = null;
 
     if (currentText === newString) {
-      console.log("Our strings our equal, nothing to type");
+      // console.log("Our strings our equal, nothing to type");
       return $e;
     }
 
     if( currentText !== currentHtml ){
-      console.log('Typer detected child elements in current html');
+      // console.log('Typer detected child elements in current html');
 
       oldBrTagsArr = getBrTagsInfo(currentHtml);
 
       if( currentText!==removeBrTags(currentHtml) || !oldBrTagsArr || oldBrTagsArr.length === 0 ){
-        console.log("Sorry, Typer doesn't handle any other than br tags as child elements in current html.");
+        console.error("Sorry, Typer doesn't handle any other than br tags as child elements in current html.");
         return $e;
       }
     }
 
     if( newString !== newHtml ){
-      console.log('Typer detected child elements in new html');
+      // console.log('Typer detected child elements in new html');
 
       newBrTagsArr = getBrTagsInfo(newHtml);
 
       if( newString!==removeBrTags(newHtml) || !newBrTagsArr || newBrTagsArr.length === 0 ){
-        console.log("Sorry, Typer doesn't handle any other than br tags as child elements in new html.");
+        console.error("Sorry, Typer doesn't handle any other than br tags as child elements in new html.");
         return $e;
       }
     }
