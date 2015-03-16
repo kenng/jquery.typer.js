@@ -15,9 +15,9 @@
   $typerOptions = array(
     'targets' => array(
       'Thibault Jorge <br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> makes smart <br class="br-resp small-only" />& enjoyable<br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> digital interfaces.',
-      'Thibault Jorge<br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> lives and works<br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> in Paris, France.',
-      'Thibault Jorge <br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" />finds inspiration <br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> in many great things.',
-      'Thibault Jorge <br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" />deeply enjoys<br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> digital photography.'
+      // 'Thibault Jorge<br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> lives and works<br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> in Paris, France.',
+      // 'Thibault Jorge <br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" />finds inspiration <br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> in many great things.',
+      // 'Thibault Jorge <br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" />deeply enjoys<br class="br-resp xlarge-only" /><br class="br-resp large-only" /><br class="br-resp small-only" /><br class="br-resp medium-only" /> digital photography.'
     ),
   );
 ?>

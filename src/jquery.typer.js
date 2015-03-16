@@ -222,7 +222,7 @@ String.prototype.rightChars = function(n){
           start: offsetRemovedBrTags + matchedBrTag.index,
           end: offsetRemovedBrTags + matchedBrTag.index + matchedBrTag[0].length
         };
-        offsetRemovedBrTags = matchedBrTag[0].length;
+        offsetRemovedBrTags = offsetRemovedBrTags + matchedBrTag[0].length;
         matchedArr.push(matchedObj);
       }
     }
